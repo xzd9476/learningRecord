@@ -2,11 +2,11 @@
 
 
 
-# 第一章：
+# 第一章：MySQL
 
 ### 1、客户端——服务器交互流程
 
-![](F:\learningRecord\Study\pic\客_服交互流程.png)
+<img src="F:\learningRecord\Study\pic\客_服交互流程.png" style="zoom:80%;" />
 
 ### 2、存储引擎：表处理器
 
@@ -39,19 +39,19 @@
 ### 5、InnoDB行记录结构
 
 1. **COMPACT行格式**
-   ![](F:\learningRecord\Study\pic\Compact行格式.png)
+   <img src="F:\learningRecord\Study\pic\Compact行格式.png" style="zoom:80%;" />
 
    - 记录头信息包含：delete_mask，标记记录是否被删除；n_owned，标记当前记录拥有的记录数；next_record，标记下一条记录的位置
    - 真实数据包含：row_id，当建表没有指定主键和唯一键时，会自动添加一个隐藏主键row_id作为主键用于建立索引
 
 2. **Redundant行格式**
-   ![](F:\learningRecord\Study\pic\Redundant行格式.png)
+   <img src="F:\learningRecord\Study\pic\Redundant行格式.png" style="zoom:80%;" />
 
    
 
 ### 6、InnoDB数据页结构
 
-<img src="F:\learningRecord\Study\pic\数据页结构.png" style="zoom:67%;" />
+<img src="F:\learningRecord\Study\pic\数据页结构.png" style="zoom: 43%;" />
 
 - **File Header**：页面通有信息，如：校验和（用于与Trailer的校验和对比）、上下页页号
 - **Page Header**：页面专有信息，如：有多少记录，有多少槽；
@@ -63,13 +63,13 @@
 
 ### 7、使用PageDirectory进行查找的过程
 
-![](F:\learningRecord\Study\pic\PageDirectory理解.png)
+<img src="F:\learningRecord\Study\pic\PageDirectory理解.png" style="zoom:65%;" />
 
 通过二分法先定位到槽2，对比主键,发现target主键>槽2的最后一个数据，那么继续二分法定位到槽1，对比主键，然后在通过遍历槽内链表结构的数据，定位到具体数据。所以，槽就相当于页码，通过页码找到数据，再看数据是否是符合要求的。
 
 ### 8、B+树结构
 
-![](F:\learningRecord\Study\pic\B+树结构.png)
+<img src="F:\learningRecord\Study\pic\B+树结构.png" style="zoom:70%;" />
 
 - 实际用户记录存在于最底层的叶子节点
 - 用来存放目录项的节点称为非叶子节点
@@ -90,7 +90,7 @@
 ​      **free链表：**把所有空闲的缓存页对应的控制块作为节点放到一个链表中；
 ​      **flush链表：**BufferPool中某个缓存页的数据被修改后，就和磁盘上的页不一样了，这样的被叫做脏页。脏页对应的控制块会被作为节点加入到一个链表中，叫做flush链表，意味着将来某个时间点会被刷新到磁盘的。
 ​      **LRU链表：**BufferPool中缓存页的组织形式。为了保留最经常被访问的缓存也，采用最近最少使用算法淘汰冷数据。
-![](F:\learningRecord\Study\pic\bufferPool.png)
+<img src="F:\learningRecord\Study\pic\bufferPool.png" style="zoom:80%;" />
 
 ### 11、事务ACID
 
@@ -197,7 +197,7 @@
 **ReadView视图:** 
     记录当前活跃的事务，用于确定数据版本的可见性。RC级别和RR级别生成ReadView的时机不一样。 
     包含`m_ids`活跃的事务id列表、`min_trx_id`活跃事务中最小的事务ID、`max_trx_id`应该分配给下一个事务的ID值、`creator_trx_id`生成这个ReadView的事务ID。
-![](F:\learningRecord\Study\pic\ReadView结构.png)
+<img src="F:\learningRecord\Study\pic\ReadView结构.png" style="zoom:80%;" />
 
 **使用ReadView进行快照读的规则：**
       1.被访问数据的trx_id与Read_View的creator_trx_id相同，说明是自己的数据，可见；
@@ -221,7 +221,7 @@
 
 **锁的分类：**
 
-![](F:\learningRecord\Study\pic\锁的分类.png)
+<img src="F:\learningRecord\Study\pic\锁的分类.png" style="zoom:80%;" />
 
 **兼容性：**
 	共享锁：也叫S锁、读锁。共享锁与共享锁兼容，与排它锁不兼容
@@ -246,29 +246,29 @@
 
 
 
-# 第二章：
+# 第二章：计网
 
 ### 1、OSI七层模型
 
-<img src="F:\learningRecord\Study\pic\OSI七层.png"  />
+<img src="F:\learningRecord\Study\pic\OSI七层.png" style="zoom:80%;" />
 
 
 
 ### 2、TCP/IP四层
 
-![](F:\learningRecord\Study\pic\TCPIP四层.png)
+<img src="F:\learningRecord\Study\pic\TCPIP四层.png" style="zoom:80%;" />
 
 
 
 ### 3、数据包结构
 
-![](F:\learningRecord\Study\pic\数据包结构.png)
+<img src="F:\learningRecord\Study\pic\数据包结构.png" style="zoom:80%;" />
 
 
 
 ### 4、TCP首部结构
 
-![](F:\learningRecord\Study\pic\TCP首部.png)
+<img src="F:\learningRecord\Study\pic\TCP首部.png" style="zoom:80%;" />
 
 - 端口号：用来标记应用进程。
 - 序列号seq：标识当前传输报文段中的第一个数据字节，随机产生seq并在三握时通过SYN传给接收端。保证TCP传输的有序性。
@@ -282,7 +282,7 @@
 
 ### 5、三次握手
 
-![](F:\learningRecord\Study\pic\三握.png)
+<img src="F:\learningRecord\Study\pic\三握.png" style="zoom:80%;" />
 
 
 
@@ -350,7 +350,7 @@
 
 1. **Http报文结构**
 
-   ![](F:\learningRecord\Study\pic\Http报文结构.png)
+   <img src="F:\learningRecord\Study\pic\Http报文结构.png" style="zoom:80%;" />
 
 1. **Http请求方法**
    get：请求参数跟在url后面，没有请求体，一般用于查询；
@@ -405,7 +405,7 @@
 
 证书校验-->非对称加密交换密钥-->对称加密通信
 
-![](F:\learningRecord\Study\pic\Https流程.png)
+<img src="F:\learningRecord\Study\pic\Https流程.png" style="zoom:80%;" />
 
 1. 客户端发起请求，请求报文中包含SSL版本，加密算法；
 2. 服务器向CA机构申请数字证书，数字证书包含服务器公钥。数字证书是被CA机构签名的，签名用于保证数字证书的完整性和真实性，防止数字证书被篡改；
@@ -415,7 +415,188 @@
 6. 服务器用私钥解密随机码KEY；
 7. 使用随机码进行对称加密通信。
 
-### 
+
+
+# 第三章：JVM
+
+### 1、JVM内存模型
+
+<img src="F:\learningRecord\Study\pic\java7的jvm内存模型.png" style="zoom:80%;" />
+
+- **线程独占：**
+  - **程序计数器**：当前线程执行的字节码行号指示器。
+  - **虚拟机栈**：每个方法的执行都会创建一个栈帧，栈帧存储局部变量表、方法出口、操作栈等信息，方法的调用和完毕对应栈帧的入栈和出栈。局部变量表存放基本数据类型，对象引用，返回地址值类型，其所需空间在编译器完成分配。
+  - **本地方法栈**：与虚拟机栈类似，只是为native方法服务。
+- 虚拟机栈：每个方法的执行都会创建一个栈帧，栈帧存储局部变量表、方法出口、操作栈等信息，方法的调用和完毕对应栈帧的入栈和出栈。局部变量表存放基本数据类型，对象引用，返回地址值类型，其所需空间在编译器完成分配。本地方法栈：与虚拟机栈类似，只是为native方法服务。
+- **线程共享：**
+  - **堆**：存放对象实例和数组。分为新生代和老年代
+    	1、新生代占堆内存的1/3
+      			1.1、新生代的80%是Eden区
+      			1.2、新生代的10%、10%分别是From Survivor、To Survivor。
+      			1.3、new出来的对象放到Eden，Eden满了进行GC，存活的放S0，S0满了就对S0进行GC，存活的放S1，S1满了就 GC存活的放老年代。
+      	2、老年代占堆内存的2/3
+  - **方法区**：存储字符串常量池、运行时常量池（编译期生成的字面量和符号引用）、静态变量、类信息（对象类型、父类、接口、方法等）。在JDK1.8之前方法区的实现叫永久代用堆内存，JDK及以后方法去的实现叫元空间用本地内存。
+
+
+
+### 2、方法区的实现：从永久代到元空间（jdk1.8）
+
+​	方法区存储：常量、静态变量、类信息（对象类型、父类、接口、方法等）。方法区是一种设计规范永久代和元空间都是方法区的实现方式，在JDK1.8之后，用元空间取代永久代。图示JDK1.7的jvm划分。
+​	<img src="F:\learningRecord\Study\pic\java7的方法区模型.png" style="zoom:80%;" />
+​	JDK1.7及以前：方法区的实现方式是永久代，永久代在物理上和堆区连续（字符串过大会造成堆溢出），逻辑上是分开的，受堆区大小影响。
+​	JDK1.8及以后：使用元空间代替永久代，字符串常量池保留在堆中，类信息放到元空间中，元空间使用的是本地内存，空间很大。
+​	字符串永远在堆中的，类信息在1.8之后移到元空间。至于静态变量和运行时常量，没资料说明。
+
+### 3、对象创建过程
+
+![](F:\learningRecord\Study\pic\对象创建过程.jpg)
+
+1. **类加载**：检查是否能够在常量池中定位到这个类的符号引用，如果没有，先执行类加载。
+2. **分配内存**：类加载完毕后可确定对象大小，在堆中为对象分配内存。
+3. **初始化**：内存分配后，虚拟机必须将分配的内存控件都初始化为零值，保证对象的实例字段可以被程序访问。
+4. **设置对象头**：对对象头设置必要的信息，包括：类的元数据信息、对象的hashcode、GC分代年龄、锁状态标志。
+5. **执行init方法**：按照代码的意愿对对象进行初始化。
+
+### 4、对象的结构
+
+对象的结构包括三部分：对象头、实例数据、对齐填充
+
+- **对象头**：分为两部分：对象自身的运行时数据（也叫Mark Word）,另一部分是类型指针
+  	1、MarkWord：包括对象hashcode、GC分代年龄、锁状态标志、指向锁记录的指针（当锁标识位为重量锁时，该指针指向monitor对象，每个对象都关联着一个monitor）
+    	2、类型指针：指向方法区的类元数据，用来确定这个对象属于哪个类。
+- **实例数据**：对象真正存储的有效信息，在代码里定义的各个字段内容
+- **对齐填充**：用于填充对象，使对象大小刚好为8字节倍数。
+
+### 5、对象的访问
+
+<img src="F:\learningRecord\Study\pic\对象引用方法.png" style="zoom:80%;" />
+
+1. 直接指针法**：虚拟机栈的局部变量表中存放的引用直接指向堆中对象，好处是快，缺点是对象移动时，引用要重新定位
+2. **句柄法**：堆中划分内存作为句柄池存放对象的地址，栈中的引用指向句柄池，句柄再指向真实对象。好处是对象的移动只需修改句柄池，缺点是两次的定位比较慢。
+
+
+
+### 6、判断对象是否需要被回收
+
+1. **引用计数算法** ：给对象添加一个引用计数器，对象被引用，计数器+1，否则-1，计数器的值为0，说明对象可被回收。但是无法解决相互引用的问题。
+
+2. **可达性分析算法（根搜索）** ：以一系列被称为GC Root的根对象作为起始节点，向下搜索，走过的路径叫做“引用链”，当一个对象到GCRoot之间没有任何引用链，说明对象可被回收。
+
+   ​	GC Roots：**1、**虚拟机栈中的方法引用的对象，**2、**本地方法栈中native方法引用的对象，
+   ​						**3、**方法区中静态变量引用的对象，**4、**方法区中常量引用的对象
+
+### 7、引用的分类
+
+1. **强引用**：最传统的引用定义，如Object obj = new Obj() ， 只要强引用存在就不会被GC
+2. **软引用**：SoftReference类来实现软引用，内存空间不足就会被GC，
+3. **弱引用**：WeakReference类实现弱引用，每次执行GC时，不管空间够不够，都会被回收
+4. **虚引用**：PhantomRefence类实现虚引用，类似与弱引用，但必须与引用队列（ReferenceQueue）联合使用，主要用于跟踪GC活动。
+
+### 8、finalize()方法
+
+​    当对象被判定GC Roots不可达时，GC判断对象是否覆盖了finalize()方法，如果没覆盖，直接回收。如果覆盖了finalize，则调用finalize方法，本次GC不回收该对象。等到下次再次GC时，再判断该对象是否可达，不可达则回收。
+
+### 9、垃圾收集算法
+
+新生代GC：Minor GC/Young GC
+老年代GC：Major GC/Old GC
+全GC：整个堆区和方法区Full GC
+
+1. **标记清除算法：**首先用可达性分析算法标记存活对象，然后统一回收未被标记对象。缺点产生大量内存碎片
+2. **标记复制算法：**“半区复制”思想，适用于存活对象较少的新生代。将内存等大划分出两块，使用可达性分析算法标记存活对象，将存活对象复制到空闲区域，全部清理工作区的对象。对于Eden，工作区是自己空闲区是S0，工作S0->空闲S1，S1->老年代。简单高效，缺点是内存空间划分容量变小
+3. **标记整理算法：**适用于存活对象校对的老年代。先标记存活对象。然后让所有存活对象向一段移动，然后直接清理掉边界以外的内存。移动对象并更新引用是很慢的操作，需要全程暂停用户操作Stop the world
+
+### 10、垃圾收集器
+
+并行：说的是垃圾收集器线程之间的并行关系，用户线程等待，垃圾收集器多线程执行。
+并发：说的是垃圾收集器与用户线程的并发关系，用户线程在执行，垃圾收集器线程也在执行。
+**标记垃圾和清理垃圾都要暂停用户线程，以及空间利用的考虑，所有的优化都是针对时间和空间来进行**
+
+1. 串**Serail**：用于新生代的单线程收集器，复制算法
+2. 串**Serial Old**：老年代的单线程收集器，标记整理算法
+3. 并行**PraNew**：Serial的多线程版本，新生代复制算法
+4. 并行**Parallel Scavenge**，新生代复制算法，与Parnew的区别是，ParNew尽可能缩短垃圾收集所需时间，Parallel尽可能降低（ GC时间：用户线程时间）的比值（也叫吞吐量）。
+5. 并行**Parallel Old**：用于老年代的，标记整理算法
+6. 并发**CMS**：用于老年代标记清除算法，并发标记+并发清除机制，可以不暂停用户线程，上面的算法都要暂停线程。
+7. 并发**G1**：
+   1、服务端的默认收集器，能够独立管理整个堆（新生代和老年代），不需要搭配其他收集器。
+   2、保留分代概念，但将堆区划分多个大小相等的独立区域（Region），每个Region都可以扮演Eden或Survivor或Old。
+   3、整体基于标记整理，Region之间使用复制算法。
+   4、并发标记+并发清除
+
+### 11、编译→类加载→运行
+
+1、编译：通过javac 命令将.java文件编译成.class字节码文件
+2、类加载：JVM把 .class文件中的类信息加载到内存，并进行校验解析，最终生成可被JVM直接使用的Java数据类型。
+3、运行把编译生成的.class文件交给JVM执行
+
+### 12、开始类加载的时机
+
+1. new对象，创建实例的时候
+2. 访问类或接口的static变量或方法
+3. 反射，Class.forName("");
+4. 初始化这个类的子类，会首先加载子类的父类
+5. JVM会先初始化main函数所在的类。
+
+### 13、类加载过程
+
+<img src="F:\learningRecord\Study\pic\类加载过程.png" style="zoom: 80%;" />
+
+加载→链接（验证、准备、解析）→初始化
+
+1. **加载：**
+   将各个来源的字节码.class文件通过加载器载入内存中。
+   字节码文件来源：本地编译的.class文件、jar包中的.class文件、通过网络加载的.class文件
+   类加载器：JVM提供，也可自实现ClassLoader基类来定义
+2. **链接：**
+   2.1、**验证**：验证字节流是否符合class文件规范。例如：文件格式验证、元数据验证、字节码验证、符号引用的验证
+   2.2、**准备**：为类的静态变量分配内存。设置默认零值，若是static final修饰的则赋予真实值。
+   2.3、**解析**：将常量池内的符号引用替换成直接引用。 符号引用就是一个类中，引入了其他的类，可是JVM并不知道引入的其他类在哪里，所以就用一个符号来代替，等到类加载器去解析的时候，就把符号引用指向被引用类的地址，这个地址也就是直接引用 
+3. **初始化：**为static赋予正确的值
+
+### 14、类加载器
+
+<img src="F:\learningRecord\Study\pic\类加载器.png" style="zoom: 80%;" />
+
+- **BootStrap ClassLoader：**根加载器，负责加载 <JAVA_HOME>/lib目录中的 java核心库类。C++实现的
+- **Extension ClassLoader：**用来加载<JAVA_HOME>/ext目录下的拓展库类
+- **Application ClassLoader：**加载应用目录下的类，Java应用的类几乎都是由他加载。
+
+### 15、双亲委派模型
+
+​      除了最顶层的BootStrap ClassLoader，类加载器收到类加载请求，首先不会自己加载这个类，而是委派给父类加载器，因此所有类加载起都应传给BootStrap ClassLoader，只有父类无法完成加载的时候，子类才会自己去加载。
+​      好处：避免类的重复加载，保证类在所有的类加载器环境中都是同一个类。
+
+### 16、破坏双亲委派模型
+
+1. **Tomcat破坏：**
+   	每个Tomcat的webappClassLoader加载自己目录下的class文件，不会传给父类加载。
+      	1、因为对于不同webapp下的jar包，需要相互隔离，可能出现同名但版本不同的类，不能出现某个应用的jar包加载影响了其他应用。
+      	2、因为web库有的类名与java库冲突，为了实现web类与java类隔离。
+2. **JDBC破坏：**
+   1、JDBC4.0之前使用Class.forName("")方式加载驱动是**不会破坏**双亲委派的。
+   2、JDBC4.0之后使用spi机制**才会**破坏双亲委派机制。 
+         因为Bootstrap ClassLoader和Extension ClassLoader，只能加载自己指定目录下的类，无法加载运行时的类。
+         Java提供的DiverManager接口位于<JAVA_HOME>/lib目录下，本应由BootStrap ClassLoader加载，而Diver接口的实现类实际是位于服务商(如MySQL)提供的Jar里面的。所以因为BootStrapClassLoader不能加载mysql.jar包里面的类，所以要破坏双亲委派模型，将DriverManager和Driver的实现类都交由自定义的加载器加载。
+
+### 17、JVM调优
+
+1. **目的：**减少FullGC和GC所需时间
+2. **方法：**设置新生代和老年代大小、选择合适的GC器、减少对象的创建
+3. **常用JVM分析工具：**JConsole，图表化的形式显示各种数据，并可远程监视服务器VM，
+4. **重要参数：**
+   堆配置：
+       -XX：InitialHeapSize = 100m //初始堆大小
+       -XX：MaxHeapSize = 100m   //最大堆大小
+       -XX：NewSize = 100m            //年轻代大小
+       -XX：NewRatio = 2              //年轻代：老年代的比值
+       -XX：SurvivorRatio = 8       //Eden区：Survivor区的比值
+   元空间配置：
+       -XX：MetaspaceSize = 50m  //设置元空间大小
+   GC器配置：
+       -XX：+UseSerialGC  //设置为使用串行Serial GC器
+       -XX：+UseG1GC      //设置为使用G1收集器
+       -XX：+PrintGC         //打印GC过程 
 
 ### 1.微服务、分布式、集群。通俗理解
 
