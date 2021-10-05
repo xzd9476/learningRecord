@@ -598,6 +598,125 @@
        -XX：+UseG1GC      //设置为使用G1收集器
        -XX：+PrintGC         //打印GC过程 
 
+# 第四章：Spring
+
+### 1、Spring四种注入方式
+
+1. **Set注入**
+   使用@AutoWired  或者 <property name="userDao" ref="userDao" /> 
+2. **构造器注入**
+   使用@AutoWired 或者 <constructor-arg index="0" ref="userDao"></constructor-arg> 
+3. 静态工厂的方法注入
+4. 动态工厂的方法注入
+
+### 2、Spring容器启动流程 & Bean初始化过程
+
+1. **容器的初始化**
+   1.1、实例化BeanFactory对象；
+   1.2、实例化注解扫描器对象（用于@Autowired自动注入）；spring自动装配的实现
+   1.3、实例化路径扫描器对象（用于xml的扫描和注入）；
+2. **注册BeanDefinition**
+   加载配置文件，解析出beanDefinition，注册到容器中的Map<>中
+3. **刷新refresh()**,包含Bean初始化过程
+   1、BeanFactoryPostProcessor()，对beanfactory进行进一步设置；
+   2、registerBeanPostProcessors()：如果用户想要在bean的初始化前后进行操作，如代理对象，修改属性等。
+   3、InitMessageSource()：如果用户向支持国际化、消息机制
+   4、registerListeners()：如果用户向监听容器启动、刷新等事件
+   5、finishBeanFactoryInitialization()：初始化所有单例例bean
+   ![](F:\learningRecord\Study\pic\fresh流程2.png)
+
+
+
+### 3、SpringBean生命周期
+
+Spring管理bean，会使用BeanDefinition对象来描述对象的元信息。Spring启动时，扫描配置封装成BeanDifinition注册到Map，通过反射将BeanDefinition实例化成对象。
+SpringBean的生命周期中，提供了很多hook供开发者拓展
+1、Bean实例化之前有BeanFactoryPostProcessor
+2、Bean实例化之后，有相关的Aware接口去设置属性
+3、Bean初始化阶段，有BeanPostProcessor的before和after方法（AOP的关键）
+4、初始化阶段，有各种init方法
+![](F:\learningRecord\Study\pic\springBean生命周期.png)
+
+### 4、Spring怎么解决循环依赖
+
+**大致过程：**首先A对象实例化，进行属性注入时发现依赖B对象，转头去实例化B对象，对B进行属性注入时发现依赖A对象，从缓存中拿到A对象，B对象初始化完成并返回到A对象进行属性注入，完成初始化。
+
+**原理：**三级缓存，就是三个Map
+singletonObjects：一级缓存，正式对象
+earlySingletonObjects：二级缓存，半成品，还没完成属性注入，里面的对象来自三级缓存
+singletonFactories：三级缓存，存的是对象工厂，用于生产半成品对象（可以支持AOP增强）
+对象实例化后，会把对象放到三级缓存。
+A对象实例化后放到三级缓存中，进行属性注入时，发现依赖B对象，去实例化B，B被放到三级缓存，发现依赖A，从三级缓存取出A，并放到二级缓存中，等到初始化完毕之后就把二级缓存移到i一级缓存。
+
+![](F:\learningRecord\Study\pic\spring解决循环依赖流程图.png)
+
+### 5、BeanFactory和ApplicationContext的区别
+
+Spring有两种容器，都是对beans进行管理的。
+
+1. **BeanFactory**：最底层的接口提供了最简单的容器功能，DI依赖注入的实现；在启动的时候不会实例化Bean，getBean()方法执行的时候才会去实例化，适用于资源紧张的小型应用；
+2. **ApplicationContext**：应用上下文，集成BeanFactory接口，提供了更多功能：国际化、资源访问、AOP。在启动的时候就把所有Bean实例化了。
+
+### 6、BeanFactory & FactoryBean的区别
+
+1. **BeanFactory**是Spring IOC的核心容器接口，用于bean的管理；
+2. **FactoryBean**是一个实现了FactoryBean接口的bean，根据该bean的ID从容器中获取出来的不是FactoryBean本身，而是其getObject()返回的对象。用于实现代理和对对象方法做拦截。
+
+### 7、bean的作用域
+
+singleton：单例，spring默认的作用域。
+
+prototype：多实例，每次对bean的调用都会生成一个实例。
+
+request：每次http请求都会创建一个bean
+
+session：在一个session中，生成一个bean实例
+
+global：在一个全局的HTTP Session中，一个bean对应一个实例。
+
+### 8、bean的自动装配
+
+1. 方式一：通过XML配置，使用byName、byType参数可指定装配的bean
+2. 方式二：使用@Autowired @Resource注解
+   在Spring容器启动时，容器自动装载了一个AutowiredAnnotationBeanPostProcessor后置处理器。会扫描Spring容器中的所有bean，当扫描到@Autowired的时候，会在IOC容器中查找需要的bean，并注入给该对象的属性。
+
+### 9、Spring AOP 和AspectJ AOP区别
+
+AOP代理分为静态代理和动态代理
+
+AspectJ是静态代理的增强，就是AOP框架会**在编译阶段生成AOP代理类**，也称编译时增强。会在编译阶段将AspectJ切面织入到 Java字节码中。
+
+Spring AOP使用的是动态代理，不会修改字节码文件，而是**在运行时在内存中为对象生成**一个AOP对象。
+
+### 10、Spring事务管理方式有几种
+
+1. **编程式事务：**在代码中硬编码
+2. **声明式事务：**在配置文件中配置，分为基于xml的声明式事务和基于注解的声明式事务
+
+### 11、Spring事务的隔离级别
+
+ISOLATION_DEFAULT：使用后端数据库默认的隔离级别。例如MySQL默认采用REPEATABLE_READ隔离级别。
+
+ISOLATION_READ_UNCOMMITTED：读未提交
+
+ISOLATION_READ_COMMITTED：读已提交
+
+ISOLATION_READ_REPEATABLE_READ：可重复读
+
+ISOLATION_SERIALIZABLE：串行。
+
+### 12、Spring事务传播行为
+
+事务传播，指的是当一个事务方法被另一个事务方法调用时，这个事务方法应该如何进行。例如当methodA事务方法调用methodB事务方法时，methodB是继续在methodA的事务中运行，还是为自己开启一个新事务运行。这就是由methodB的事务传播行为决定的。
+
+1. PROPAGATION_REQUIRED：如果当前存在事务，则加入该事务；如果当前没有事务，则创建一个新的事务
+2. PROPAGATION_SUPPORTS：如果当前存在事务，则加入该事物；如果当前没有事务，则以非事务的方式继续运行
+3. PROPAGATION_MANDATORY：如果当前存在失误，则加入该事务，如果当前没有事务，则抛出异常
+4. PROPAGATION_REQUIRES_NEW：创建一个新的事务，如果当前存在事务则把当前事务挂起。
+5. PROPAGATION_NOT_SUPPORTED：以非事务方式运行，如果当前存在事务，则把当前事务挂起。
+6. PROPAGATION_NEVER：以非事务方式运行，如果当前存在事务，则抛出异常
+7. PROPAGATION_NESTED：如果当前存在事务，则创建一个事务作为当前事务的嵌套事务来运行，如果当前没有事务，则该取值等价于PROPAGATION_REQUIRED
+
 ### 1.微服务、分布式、集群。通俗理解
 
 微服务是设计层面的，分布式是部署层面的。分布式是微服务的实现方式。
