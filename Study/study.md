@@ -6,7 +6,7 @@
 
 ### 1、客户端——服务器交互流程
 
-<img src="F:\learningRecord\Study\pic\客_服交互流程.png" style="zoom:80%;" />
+<img src="/home/xiaozhidong/Desktop/learningRecord/Study/pic/客_服交互流程.png" style="zoom:80%;" />
 
 ### 2、存储引擎：表处理器
 
@@ -39,19 +39,19 @@
 ### 5、InnoDB行记录结构
 
 1. **COMPACT行格式**
-   <img src="F:\learningRecord\Study\pic\Compact行格式.png" style="zoom:80%;" />
+   <img src="/home/xiaozhidong/Desktop/learningRecord/Study/pic/Compact行格式.png" style="zoom:80%;" />
 
    - 记录头信息包含：delete_mask，标记记录是否被删除；n_owned，标记当前记录拥有的记录数；next_record，标记下一条记录的位置
    - 真实数据包含：row_id，当建表没有指定主键和唯一键时，会自动添加一个隐藏主键row_id作为主键用于建立索引
 
 2. **Redundant行格式**
-   <img src="F:\learningRecord\Study\pic\Redundant行格式.png" style="zoom:80%;" />
+   <img src="/home/xiaozhidong/Desktop/learningRecord/Study/pic/Redundant行格式.png" style="zoom:80%;" />
 
    
 
 ### 6、InnoDB数据页结构
 
-<img src="F:\learningRecord\Study\pic\数据页结构.png" style="zoom: 43%;" />
+<img src="/home/xiaozhidong/Desktop/learningRecord/Study/pic/数据页结构.png" style="zoom: 43%;" />
 
 - **File Header**：页面通有信息，如：校验和（用于与Trailer的校验和对比）、上下页页号
 - **Page Header**：页面专有信息，如：有多少记录，有多少槽；
@@ -63,13 +63,13 @@
 
 ### 7、使用PageDirectory进行查找的过程
 
-<img src="F:\learningRecord\Study\pic\PageDirectory理解.png" style="zoom:65%;" />
+<img src="/home/xiaozhidong/Desktop/learningRecord/Study/pic/PageDirectory理解.png" style="zoom:65%;" />
 
 通过二分法先定位到槽2，对比主键,发现target主键>槽2的最后一个数据，那么继续二分法定位到槽1，对比主键，然后在通过遍历槽内链表结构的数据，定位到具体数据。所以，槽就相当于页码，通过页码找到数据，再看数据是否是符合要求的。
 
 ### 8、B+树结构
 
-<img src="F:\learningRecord\Study\pic\B+树结构.png" style="zoom:70%;" />
+<img src="/home/xiaozhidong/Desktop/learningRecord/Study/pic/B+树结构.png" style="zoom:70%;" />
 
 - 实际用户记录存在于最底层的叶子节点
 - 用来存放目录项的节点称为非叶子节点
@@ -90,7 +90,7 @@
 ​      **free链表：**把所有空闲的缓存页对应的控制块作为节点放到一个链表中；
 ​      **flush链表：**BufferPool中某个缓存页的数据被修改后，就和磁盘上的页不一样了，这样的被叫做脏页。脏页对应的控制块会被作为节点加入到一个链表中，叫做flush链表，意味着将来某个时间点会被刷新到磁盘的。
 ​      **LRU链表：**BufferPool中缓存页的组织形式。为了保留最经常被访问的缓存也，采用最近最少使用算法淘汰冷数据。
-<img src="F:\learningRecord\Study\pic\bufferPool.png" style="zoom:80%;" />
+<img src="/home/xiaozhidong/Desktop/learningRecord/Study/pic/bufferPool.png" style="zoom:80%;" />
 
 ### 11、事务ACID
 
@@ -197,7 +197,7 @@
 **ReadView视图:** 
     记录当前活跃的事务，用于确定数据版本的可见性。RC级别和RR级别生成ReadView的时机不一样。 
     包含`m_ids`活跃的事务id列表、`min_trx_id`活跃事务中最小的事务ID、`max_trx_id`应该分配给下一个事务的ID值、`creator_trx_id`生成这个ReadView的事务ID。
-<img src="F:\learningRecord\Study\pic\ReadView结构.png" style="zoom:80%;" />
+<img src="/home/xiaozhidong/Desktop/learningRecord/Study/pic/ReadView结构.png" style="zoom:80%;" />
 
 **使用ReadView进行快照读的规则：**
       1.被访问数据的trx_id与Read_View的creator_trx_id相同，说明是自己的数据，可见；
@@ -221,7 +221,7 @@
 
 **锁的分类：**
 
-<img src="F:\learningRecord\Study\pic\锁的分类.png" style="zoom:80%;" />
+<img src="/home/xiaozhidong/Desktop/learningRecord/Study/pic/锁的分类.png" style="zoom:80%;" />
 
 **兼容性：**
 	共享锁：也叫S锁、读锁。共享锁与共享锁兼容，与排它锁不兼容
@@ -250,25 +250,25 @@
 
 ### 1、OSI七层模型
 
-<img src="F:\learningRecord\Study\pic\OSI七层.png" style="zoom:80%;" />
+<img src="/home/xiaozhidong/Desktop/learningRecord/Study/pic/OSI七层.png" style="zoom:80%;" />
 
 
 
 ### 2、TCP/IP四层
 
-<img src="F:\learningRecord\Study\pic\TCPIP四层.png" style="zoom:80%;" />
+<img src="/home/xiaozhidong/Desktop/learningRecord/Study/pic/TCPIP四层.png" style="zoom:80%;" />
 
 
 
 ### 3、数据包结构
 
-<img src="F:\learningRecord\Study\pic\数据包结构.png" style="zoom:80%;" />
+<img src="/home/xiaozhidong/Desktop/learningRecord/Study/pic/数据包结构.png" style="zoom:80%;" />
 
 
 
 ### 4、TCP首部结构
 
-<img src="F:\learningRecord\Study\pic\TCP首部.png" style="zoom:80%;" />
+<img src="/home/xiaozhidong/Desktop/learningRecord/Study/pic/TCP首部.png" style="zoom:80%;" />
 
 - 端口号：用来标记应用进程。
 - 序列号seq：标识当前传输报文段中的第一个数据字节，随机产生seq并在三握时通过SYN传给接收端。保证TCP传输的有序性。
@@ -282,7 +282,7 @@
 
 ### 5、三次握手
 
-<img src="F:\learningRecord\Study\pic\三握.png" style="zoom:80%;" />
+<img src="/home/xiaozhidong/Desktop/learningRecord/Study/pic/三握.png" style="zoom:80%;" />
 
 
 
@@ -293,7 +293,7 @@
 
 ### 6、四次挥手
 
-<img src="F:\learningRecord\Study\pic\四挥.png" style="zoom: 80%;" />
+<img src="/home/xiaozhidong/Desktop/learningRecord/Study/pic/四挥.png" style="zoom: 80%;" />
 
 1.客户端发送FIN报文段，seq为随机值，客户端进入FIN_WAIT_1 状态；
 
@@ -320,7 +320,7 @@
 ​	虽然使用流量控制可以知道接收方的缓存大小，从而控制发送的数据量，当网络环境是不得而知的，所以为了避免造成网络拥堵的情况，还需要进行拥塞控制。
 ​	发送方维护名为拥塞窗口的变量cwnd，拥塞窗口通过算法动态更新，发送方会选取拥塞窗口和接收端通知的窗口中最小的那个，最为发送的窗口大小。
 
-<img src="F:\learningRecord\Study\pic\拥塞控制.png" style="zoom:80%;" />
+<img src="/home/xiaozhidong/Desktop/learningRecord/Study/pic/拥塞控制.png" style="zoom:80%;" />
 
 1.慢开始算法：拥塞窗口初始值为1个MSS最大报文段长度（标准值为1460字节），每次收到ACK，cwnd 就乘2；
 
@@ -350,7 +350,7 @@
 
 1. **Http报文结构**
 
-   <img src="F:\learningRecord\Study\pic\Http报文结构.png" style="zoom:80%;" />
+   <img src="/home/xiaozhidong/Desktop/learningRecord/Study/pic/Http报文结构.png" style="zoom:80%;" />
 
 1. **Http请求方法**
    get：请求参数跟在url后面，没有请求体，一般用于查询；
@@ -405,7 +405,7 @@
 
 证书校验-->非对称加密交换密钥-->对称加密通信
 
-<img src="F:\learningRecord\Study\pic\Https流程.png" style="zoom:80%;" />
+<img src="/home/xiaozhidong/Desktop/learningRecord/Study/pic/Https流程.png" style="zoom:80%;" />
 
 1. 客户端发起请求，请求报文中包含SSL版本，加密算法；
 2. 服务器向CA机构申请数字证书，数字证书包含服务器公钥。数字证书是被CA机构签名的，签名用于保证数字证书的完整性和真实性，防止数字证书被篡改；
@@ -421,7 +421,7 @@
 
 ### 1、JVM内存模型
 
-<img src="F:\learningRecord\Study\pic\java7的jvm内存模型.png" style="zoom:80%;" />
+<img src="/home/xiaozhidong/Desktop/learningRecord/Study/pic/java7的jvm内存模型.png" style="zoom:80%;" />
 
 - **线程独占：**
   - **程序计数器**：当前线程执行的字节码行号指示器。
@@ -442,14 +442,14 @@
 ### 2、方法区的实现：从永久代到元空间（jdk1.8）
 
 ​	方法区存储：常量、静态变量、类信息（对象类型、父类、接口、方法等）。方法区是一种设计规范永久代和元空间都是方法区的实现方式，在JDK1.8之后，用元空间取代永久代。图示JDK1.7的jvm划分。
-​	<img src="F:\learningRecord\Study\pic\java7的方法区模型.png" style="zoom:80%;" />
+​	<img src="/home/xiaozhidong/Desktop/learningRecord/Study/pic/java7的方法区模型.png" style="zoom:80%;" />
 ​	JDK1.7及以前：方法区的实现方式是永久代，永久代在物理上和堆区连续（字符串过大会造成堆溢出），逻辑上是分开的，受堆区大小影响。
 ​	JDK1.8及以后：使用元空间代替永久代，字符串常量池保留在堆中，类信息放到元空间中，元空间使用的是本地内存，空间很大。
 ​	字符串永远在堆中的，类信息在1.8之后移到元空间。至于静态变量和运行时常量，没资料说明。
 
 ### 3、对象创建过程
 
-![](F:\learningRecord\Study\pic\对象创建过程.jpg)
+![](/home/xiaozhidong/Desktop/learningRecord/Study/pic/对象创建过程.jpg)
 
 1. **类加载**：检查是否能够在常量池中定位到这个类的符号引用，如果没有，先执行类加载。
 2. **分配内存**：类加载完毕后可确定对象大小，在堆中为对象分配内存。
@@ -462,14 +462,19 @@
 对象的结构包括三部分：对象头、实例数据、对齐填充
 
 - **对象头**：分为两部分：对象自身的运行时数据（也叫Mark Word）,另一部分是类型指针
-  	1、MarkWord：包括对象hashcode、GC分代年龄、锁状态标志、指向锁记录的指针（当锁标识位为重量锁时，该指针指向monitor对象，每个对象都关联着一个monitor）
-    	2、类型指针：指向方法区的类元数据，用来确定这个对象属于哪个类。
+  1、**MarkWord**：包括
+  		1.1对象hashcode、GC分代年龄、锁状态标志、
+  		1.2偏向锁所有者线程ID（指向线程ID）、
+  		1.3轻量锁指针（指向锁所有者线程ID）、
+  		1.4重量锁指针（当锁标志为重量锁时，指向monitor对象）
+  <img src="/home/xiaozhidong/Desktop/learningRecord/Study/pic/MardWord结构.png" style="zoom: 67%;" />
+  2、**类型指针**：指向方法区的类元数据，用来确定这个对象属于哪个类。
 - **实例数据**：对象真正存储的有效信息，在代码里定义的各个字段内容
 - **对齐填充**：用于填充对象，使对象大小刚好为8字节倍数。
 
 ### 5、对象的访问
 
-<img src="F:\learningRecord\Study\pic\对象引用方法.png" style="zoom:80%;" />
+<img src="/home/xiaozhidong/Desktop/learningRecord/Study/pic/对象引用方法.png" style="zoom:80%;" />
 
 1. 直接指针法**：虚拟机栈的局部变量表中存放的引用直接指向堆中对象，好处是快，缺点是对象移动时，引用要重新定位
 2. **句柄法**：堆中划分内存作为句柄池存放对象的地址，栈中的引用指向句柄池，句柄再指向真实对象。好处是对象的移动只需修改句柄池，缺点是两次的定位比较慢。
@@ -540,7 +545,7 @@
 
 ### 13、类加载过程
 
-<img src="F:\learningRecord\Study\pic\类加载过程.png" style="zoom: 80%;" />
+<img src="/home/xiaozhidong/Desktop/learningRecord/Study/pic/类加载过程.png" style="zoom: 80%;" />
 
 加载→链接（验证、准备、解析）→初始化
 
@@ -556,7 +561,7 @@
 
 ### 14、类加载器
 
-<img src="F:\learningRecord\Study\pic\类加载器.png" style="zoom: 80%;" />
+<img src="/home/xiaozhidong/Desktop/learningRecord/Study/pic/类加载器.png" style="zoom: 80%;" />
 
 - **BootStrap ClassLoader：**根加载器，负责加载 <JAVA_HOME>/lib目录中的 java核心库类。C++实现的
 - **Extension ClassLoader：**用来加载<JAVA_HOME>/ext目录下的拓展库类
@@ -623,7 +628,7 @@
    3、InitMessageSource()：如果用户向支持国际化、消息机制
    4、registerListeners()：如果用户向监听容器启动、刷新等事件
    5、finishBeanFactoryInitialization()：初始化所有单例例bean
-   ![](F:\learningRecord\Study\pic\fresh流程2.png)
+   ![](/home/xiaozhidong/Desktop/learningRecord/Study/pic/fresh流程2.png)
 
 
 
@@ -635,7 +640,7 @@ SpringBean的生命周期中，提供了很多hook供开发者拓展
 2、Bean实例化之后，有相关的Aware接口去设置属性
 3、Bean初始化阶段，有BeanPostProcessor的before和after方法（AOP的关键）
 4、初始化阶段，有各种init方法
-![](F:\learningRecord\Study\pic\springBean生命周期.png)
+![](/home/xiaozhidong/Desktop/learningRecord/Study/pic/springBean生命周期.png)
 
 ### 4、Spring怎么解决循环依赖
 
@@ -648,7 +653,7 @@ singletonFactories：三级缓存，存的是对象工厂，用于生产半成�
 对象实例化后，会把对象放到三级缓存。
 A对象实例化后放到三级缓存中，进行属性注入时，发现依赖B对象，去实例化B，B被放到三级缓存，发现依赖A，从三级缓存取出A，并放到二级缓存中，等到初始化完毕之后就把二级缓存移到i一级缓存。
 
-![](F:\learningRecord\Study\pic\spring解决循环依赖流程图.png)
+![](/home/xiaozhidong/Desktop/learningRecord/Study/pic/spring解决循环依赖流程图.png)
 
 ### 5、BeanFactory和ApplicationContext的区别
 
