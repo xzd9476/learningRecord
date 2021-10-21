@@ -461,11 +461,13 @@
 
 对象的结构包括三部分：对象头、实例数据、对齐填充
 
+<img src="/home/xiaozhidong/Desktop/learningRecord/Study/pic/对象结构.png" style="zoom: 90%;" />
+
 - **对象头**：分为两部分：对象自身的运行时数据（也叫Mark Word）,另一部分是类型指针
   1、**MarkWord**：包括
   		1.1对象hashcode、GC分代年龄、锁状态标志、
   		1.2偏向锁所有者线程ID（指向线程ID）、
-  		1.3轻量锁指针（指向锁所有者线程ID）、
+  		1.3轻量锁指针（指向锁持有者线程的栈帧中的锁记录）、
   		1.4重量锁指针（当锁标志为重量锁时，指向monitor对象）
   <img src="/home/xiaozhidong/Desktop/learningRecord/Study/pic/MardWord结构.png" style="zoom: 67%;" />
   2、**类型指针**：指向方法区的类元数据，用来确定这个对象属于哪个类。
@@ -816,6 +818,12 @@ Kafka：高吞吐，适用于大数据领域。
 ### 5、消息顺序性
 
 必须是一个MQ一个消费者，如果有多个消费者就保证不了消息有序被消费。
+
+
+
+# 第七章：Java基础
+
+Synchronized锁升级
 
 ### 1.微服务、分布式、集群。通俗理解
 
