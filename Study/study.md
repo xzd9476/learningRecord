@@ -890,8 +890,28 @@ notifyAll( )：唤醒所有等待的线程。
 
 interrupt( )：中断线程。
 
-### 4、线程状态转换
+### 4、sleep和wait方法区别
+
+1. sleep没有释放锁，wait释放了锁
+2. sleep通常用于暂定，wait通常用于线程间的通信
+3. sleep属于Thread类，Wait属于Object
+
+### 5、线程状态转换
 
 <img src="/home/xiaozhidong/Desktop/learningRecord/Study/pic/线程状态.png" style="zoom:90%;" />
 
-### 5、
+### 6、创建线程的方式
+
+1、继承Thread类；2、实现Runnable接口；3、实现Callable接口；4、线程池
+
+### 7、Callable和Runnable区别
+
+1. Callable的方法是call，Runnable的方法是run
+2. Runnable没有返回值，Callable返回执行结果，是个泛型，和Futrue、FutrueTask配合可以用来获取执行结果
+3. call方法允许抛出一场，run的异常只能内部catch
+
+### 8、死锁和避免
+
+1. 死锁：多个线程互相占用其他线程所需要的资源，因争夺资源产生的一种相互等待的现象
+2. 四个条件：1、互斥；2、请求和保持；3、不剥夺；4、循环等待
+3. 避免死锁：1、破坏互斥；2、破坏请求和保持，一次申请所有资源；3、破坏不剥夺，申请不到资源时，释放自身持有的资源；4、破坏循环等待
