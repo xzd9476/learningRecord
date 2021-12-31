@@ -925,11 +925,30 @@ interrupt( )：中断线程。
 ### 10、java内存模型JMM
 
 ​	在cpu和主存之间使用高速缓存，解决了cpu和主存之间的读写速度差异问题。但同时出现了共享数据的并发问题。为了满足并发编程中的原子性、可见性、有序性，Java中定义了这么一个概念：JMM内存模型。
-​	JMM定义了共享内存中线程读写操作行为的规范，通过这些来规范对内存的读写操作。从而保证指令执行的正确性。**Java内存模型（Java Memory Model ,JMM）就是一种符合内存模型规范的，屏蔽了各种硬件和操作系统的访问差异的，保证了Java程序在各种平台下对内存的访问都能保证效果一致的机制及规范**
+​	**Java内存模型（Java Memory Model ,JMM）就是一种符合内存模型规范的，保证Java程序在各种平台下对内存的访问都能保证效果一致的机制及规范**
+
+<img src="/home/xiaozhidong/Desktop/learningRecord/Study/pic/JMM内存模型.jpg" style="zoom: 25%;" />
+	规定，所有变量都存储在主内存中，每条线程有自己的工作内存。线程对变量的所有操作都在工作内存中进行，然后在同步到主内存。
 
 ### 11、Happens-before
 
+	在程序执行时，为了提高性能，编译器会对指令进行重排序。JMM可以通过happens-before原则来保证程序执行的顺序性。通过内存屏障来实现
+(1)程序顺序规则：一个线程中的每个操作，happens-before于该线程中的任意后续操作。
+(2)监视器锁规则：对一个锁的解锁，happens-before于随后对这个锁的加锁。
+(3)volatile变量规则：对一个volatile域的写，happens-before于任意后续对这个volatile域的读。
+(4)传递性：如果A happens-before B，且B happens-before C，那么A happens-before C。
+(5)start()规则：如果线程A执行操作ThreadB.start()（启动线程B），那么A线程的ThreadB.start()操作happens-before于线程B中的任意操作。
+(6)Join()规则：如果线程A执行操作ThreadB.join()并成功返回，那么线程B中的任意操作happens-before于线程A从ThreadB.join()操作成功返回。
+(7)程序中断规则：对线程interrupted()方法的调用先行于被中断线程的代码检测到中断时间的发生。
+(8)对象finalize规则：一个对象的初始化完成（构造函数执行结束）先行于发生它的finalize()方法的开始。
+
 ### 12、volatile关键字
+
+可见性：基于JMM内存模型，变量被修改后会立刻刷新到主内存，并让其他工作内存中的值失效，从而重新读取新值。
+
+有序性：JMM对volatile变量限制指令重排，不会调整这个变量的代码的顺序。通过内存屏障来实现
+
+不保证原子性：自增操作包含：1读，2增，3写主存，volatile可以保证3的可见行，但是前两步不是线程安全的
 
 ### 13、CAS 和Automic类
 
